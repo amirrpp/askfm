@@ -7,28 +7,43 @@
 
 {% block main_block %}
     <div>
-        <form action="{% url 'add_question' user_pk=current_user.pk %}" method="post">
+        <form action="{% url 'add_question' user_pk=current_user.pk %}" method="post" class="jumbotron">
             {% csrf_token %}
-            {{ add_question_form }}
 
-            <input type="submit" value="Add"/>
+            {% for field in add_question_form %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    <textarea class="form-control" id="{{ field.auto_id }}" name="{{ field.name }}"
+                              placeholder="{{ field.name }}"></textarea>
+                </div>
+            {% endfor %}
+
+            <input class="btn btn-success" type="submit" value="Add"/>
         </form>
     </div>
-    <ul>
+{#    <ul>#}
         {% for question in question_list %}
             {% with answer=question.answers.first %}
-                <li>
-                    {% if current_user == user and not answer %}
-                        <p>Question: <a
-                                href="{% url 'question_answer' user_pk=current_user.pk pk=question.pk %}">{{ question.question }}</a>
-                        </p>
-                    {% else %}
-                        <p>Question: {{ question.question }}</p>
-                    {% endif %}
-                    <p>Answer: {% if answer %}{{ answer }}{% endif %}</p>
-                    from: {{ question.user_from }} || date: {{ question.date_question }}
-                </li>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            {% if current_user == user and not answer %}
+                                <a href="{% url 'question_answer' user_pk=current_user.pk pk=question.pk %}"
+                                        style="color:blue; text-decoration: underline">
+                                    {{ question.question }}</a>
+                            {% else %}
+                                {{ question.question }}
+                            {% endif %}
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>{% if answer %}{{ answer }}{% endif %}</p>
+                    </div>
+                    <div class="panel-footer">
+                        from: {{ question.user_from }} || date: {{ question.date_question }}
+                    </div>
+                </div>
             {% endwith %}
         {% endfor %}
-    </ul>
+{#    </ul>#}
 {% endblock %}

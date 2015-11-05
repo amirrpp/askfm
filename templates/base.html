@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,14 +8,24 @@
             Blank page
         {% endblock %}
     </title>
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.css" %}" />
+
 </head>
 <body>
 
-{% block header %}
-{% endblock %}
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            {% block header %}
+            {% endblock %}
+        </div>
+        <div class="col-xs-12">
+            {% block main_block %}
+            {% endblock %}
+        </div>
+    </div>
 
-{% block main_block %}
-{% endblock %}
+</div>
 
 </body>
 </html>

@@ -6,10 +6,10 @@
 {% endblock %}
 
 {% block main_block %}
-    <ul>
+    <div class="list-group">
         {% for user_item in users %}
-{#            <li><a href="{{ user_item.pk }}">{{ user_item.username }}</a></li>#}
-            <li><a href="{% url 'user_questions' user_pk=user_item.pk %}">{{ user_item.username }}</a></li>
+            <a href="{% url 'user_questions' user_pk=user_item.pk %}"
+               class="list-group-item">{{ user_item.username }}</a>
         {% endfor %}
-    </ul>
+    </div>
 {% endblock %}
