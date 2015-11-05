@@ -10,9 +10,17 @@ class Question(models.Model):
 
     date_question = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.question
+
 
 class Answer(models.Model):
-    question = models.ForeignKey('answer.Question', related_name='answers')
+    question = models.ForeignKey(Question, related_name='answers')
+
+    answer = models.TextField(max_length=600, null=True, blank=True)
 
     date_answer = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.answer
 
