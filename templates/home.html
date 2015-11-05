@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block header %}
+    <h1>User list</h1>
+{% endblock %}
+
+{% block main_block %}
+    <ul>
+        {% for user_item in users %}
+{#            <li><a href="{{ user_item.pk }}">{{ user_item.username }}</a></li>#}
+            <li><a href="{% url 'user_questions' user_pk=user_item.pk %}">{{ user_item.username }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -16,6 +16,13 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
+from answer.views import UserListView, UserQuestionListView, CreateUserQuestion, CreateAnswer
+
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+
+    url(r'^$', UserListView.as_view(), name='home'),
+    url(r'^(?P<user_pk>\d+)/$', UserQuestionListView.as_view(), name='user_questions'),
+    url(r'^(?P<user_pk>\d+)/(?P<pk>\d+)/$', CreateAnswer.as_view(), name='question_answer'),
+    url(r'^(?P<user_pk>\d+)/add_question/$', CreateUserQuestion.as_view(), name='add_question'),
 ]
